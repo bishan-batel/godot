@@ -2,7 +2,7 @@
   description = "Nix flake to build the Godot Engine from source";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -33,7 +33,7 @@
           libglvnd
           libxkbcommon
           openssl
-          speechd
+          # speechd
           udev
           vulkan-loader
           wayland
@@ -50,3 +50,4 @@
         };
 
       });
+}
