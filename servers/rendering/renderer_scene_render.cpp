@@ -189,6 +189,12 @@ void RendererSceneRender::CameraData::set_multiview_camera(uint32_t p_view_count
 	}
 }
 
+void RendererSceneRender::CameraData::set_override_projection(const Projection &p_projection) {
+	if (view_count == 1) {
+		view_projection[0] = p_projection;
+	}
+}
+
 /* Compositor effect API */
 
 RID RendererSceneRender::compositor_effect_allocate() {
