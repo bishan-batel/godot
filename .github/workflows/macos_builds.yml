@@ -106,6 +106,10 @@ jobs:
           rm -rf ./bin/build_deps
           strip bin/godot.*
           chmod +x bin/godot.*
+      - name: Mono Generation
+        run: |
+          ./bin/godot.macos.${{ matrix.target }}.universal --headless --generate-mono-glue modules/mono/glue
+          python3 ./modules/mono/build_scripts/build_assemblies.py --godot-output-dir=./bin
 
       - name: Upload artifact
         uses: ./.github/actions/upload-artifact
