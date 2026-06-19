@@ -30,6 +30,7 @@
 
 #pragma once
 
+#include "core/math/projection.h"
 #include "core/templates/interpolated_property.h"
 #include "scene/3d/node_3d.h"
 #include "scene/3d/velocity_tracker_3d.h"
@@ -44,7 +45,7 @@ public:
 	enum ProjectionType {
 		PROJECTION_PERSPECTIVE,
 		PROJECTION_ORTHOGONAL,
-		PROJECTION_FRUSTUM
+		PROJECTION_FRUSTUM,
 	};
 
 	enum KeepAspect {
@@ -139,6 +140,7 @@ public:
 	void set_perspective(real_t p_fovy_degrees, real_t p_z_near, real_t p_z_far);
 	void set_orthogonal(real_t p_size, real_t p_z_near, real_t p_z_far);
 	void set_frustum(real_t p_size, Vector2 p_offset, real_t p_z_near, real_t p_z_far);
+	void set_custom(Projection projection);
 	void set_projection(Camera3D::ProjectionType p_mode);
 
 	void make_current();

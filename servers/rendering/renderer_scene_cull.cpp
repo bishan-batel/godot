@@ -115,6 +115,13 @@ void RendererSceneCull::camera_set_frustum(RID p_camera, float p_size, Vector2 p
 	camera->zfar = p_z_far;
 }
 
+void RendererSceneCull::camera_set_custom_projection(const RID p_camera, const Projection projection) {
+	Camera *camera = camera_owner.get_or_null(p_camera);
+	ERR_FAIL_NULL(camera);
+	camera->override_projection = true;
+	camera->custom_projection = projection;
+}
+
 void RendererSceneCull::camera_set_transform(RID p_camera, const Transform3D &p_transform) {
 	Camera *camera = camera_owner.get_or_null(p_camera);
 	ERR_FAIL_NULL(camera);
@@ -2732,6 +2739,11 @@ void RendererSceneCull::render_camera(const Ref<RenderSceneBuffers> &p_render_bu
 		}
 
 		camera_data.set_camera(transform, projection, is_orthogonal, vaspect, jitter, taa_frame_count, camera->visible_layers);
+
+		if (camera->override_projection && camera_data.view_count == 1) {
+			camera_data.view_projection[0] = camera->custom_projection;
+		}
+
 #ifndef XR_DISABLED
 	} else {
 		XRServer *xr_server = XRServer::get_singleton();

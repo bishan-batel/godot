@@ -350,6 +350,11 @@ void Camera3D::set_frustum(real_t p_size, Vector2 p_offset, real_t p_z_near, rea
 	update_gizmos();
 }
 
+void Camera3D::set_custom(Projection projection) {
+	_update_camera_mode();
+	update_gizmos();
+}
+
 void Camera3D::set_projection(ProjectionType p_mode) {
 	if (p_mode == PROJECTION_PERSPECTIVE || p_mode == PROJECTION_ORTHOGONAL || p_mode == PROJECTION_FRUSTUM) {
 		mode = p_mode;

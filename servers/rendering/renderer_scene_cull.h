@@ -31,6 +31,7 @@
 #pragma once
 
 #include "core/math/dynamic_bvh.h"
+#include "core/math/projection.h"
 #include "core/math/transform_interpolator.h"
 #include "core/templates/bin_sorted_array.h"
 #include "core/templates/local_vector.h"
@@ -87,6 +88,8 @@ public:
 		RID env;
 		RID attributes;
 		RID compositor;
+		bool override_projection;
+		Projection custom_projection;
 
 		Transform3D transform;
 
@@ -99,6 +102,8 @@ public:
 			size = 1.0;
 			offset = Vector2();
 			vaspect = false;
+			override_projection = false;
+			custom_projection.set_zero();
 		}
 	};
 
@@ -110,6 +115,7 @@ public:
 	virtual void camera_set_perspective(RID p_camera, float p_fovy_degrees, float p_z_near, float p_z_far);
 	virtual void camera_set_orthogonal(RID p_camera, float p_size, float p_z_near, float p_z_far);
 	virtual void camera_set_frustum(RID p_camera, float p_size, Vector2 p_offset, float p_z_near, float p_z_far);
+	virtual void camera_set_custom_projection(RID p_camera, Projection projection);
 	virtual void camera_set_transform(RID p_camera, const Transform3D &p_transform);
 	virtual void camera_set_cull_mask(RID p_camera, uint32_t p_layers);
 	virtual void camera_set_environment(RID p_camera, RID p_env);
