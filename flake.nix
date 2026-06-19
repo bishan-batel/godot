@@ -41,16 +41,23 @@
 		] else [
             vulkan-headers
             moltenvk
+			zlib
 		]));
       in
       {
         # Development shell providing the build environment
         devShells.default = pkgs.mkShell {
-          nativeBuildInputs = buildDeps;
-          buildInputs = libDeps;
+			nativeBuildInputs = buildDeps;
+			buildInputs = libDeps;
 
-          # Ensure compiler/linker can find graphics and vulkan drivers at runtime
-          LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath libDeps;
+			env = {
+				ZLIB = "${pkgs.zlib.dev}/include";
+				NIX_LDFLAGS = "-L${pkgs.zlib}/lib";
+				LDFLAGS = "-L${pkgs.zlib}/lib";
+			# Ensure compiler/linker can find graphics and vulkan drivers at runtime
+				LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath libDeps;
+				DYLD_LIBRARY_PATH = pkgs.lib.makeLibraryPath libDeps;
+			};
         };
 
       });
